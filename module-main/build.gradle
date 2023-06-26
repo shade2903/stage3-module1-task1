@@ -1,0 +1,18 @@
+plugins {
+    id 'java'
+}
+
+group 'com.mjc.school'
+version 'unspecified'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':module-web')
+}
+
+test {
+    useJUnitPlatform()
+}
