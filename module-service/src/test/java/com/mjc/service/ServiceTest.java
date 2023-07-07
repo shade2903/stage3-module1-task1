@@ -23,14 +23,14 @@ public class ServiceTest {
 
 
     NewsService<NewsDto> newsService = new NewsServiceImpl();
-    private NewsModel modelNews = NewsModel.getBuilder()
-            .setId(15L)
-            .setTitle("Some test title")
-            .setContent("Some test content")
-            .setCreateDate(LocalDateTime.now())
-            .setLastUpdateDate(LocalDateTime.now())
-            .setAuthorId(11L)
-            .build();
+    private NewsModel modelNews = new  NewsModel(
+            15L,
+            "Some test title",
+            "Some test content",
+            LocalDateTime.now(),
+            LocalDateTime.now(),
+            11L);
+
 
     private NewsDto newsDto = NewsDto.getBuilder()
             .setId(2L)

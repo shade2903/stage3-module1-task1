@@ -18,7 +18,6 @@ public class DataSource {
     private static final String PATH_NEWS = "news.txt";
     private static final int DATA_SOURCE_SIZE = 20;
 
-
     private DataSource() {
         this.authorModels = initAuthorModels();
         this.newsModels = initNewsModels();
@@ -35,7 +34,7 @@ public class DataSource {
     private List<AuthorModel> initAuthorModels() {
         List<AuthorModel> authors = new ArrayList<>();
         Long id = 1L;
-        for (String s : readResourceFile(PATH_AUTHOR)) {
+        for (String s : Utils.readResourceFile(PATH_AUTHOR)) {
             authors.add(new AuthorModel(id,s));
             id++;
         }
@@ -44,45 +43,27 @@ public class DataSource {
 
     private List<NewsModel> initNewsModels() {
         List<NewsModel> newsList = new ArrayList<>();
-        List<String> news = readResourceFile(PATH_NEWS);
-        List<String> content = readResourceFile(PATH_CONTENT);
+        List<String> news = Utils.readResourceFile(PATH_NEWS);
+        List<String> content = Utils.readResourceFile(PATH_CONTENT);
         Long id = 1L;
         for (int i = 0; i < DATA_SOURCE_SIZE; i++) {
+            LocalDateTime initDate = Utils.getRandomDate();
             newsList.add(
                     new NewsModel(id++,
                             news.get(i),
                             content.get(i),
-                            LocalDateTime.now(),
-                            LocalDateTime.now(),
+                            initDate,
+                            initDate,
                             authorModels.get(i).getId())
                             );
         }
         return newsList;
     }
 
-    private List<String> readResourceFile(String path) {
-        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-        InputStream inputStream = classloader.getResourceAsStream(path);
-        List<String> listData = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                listData.add(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return listData;
-    }
-
     public List<NewsModel> getAllNews() {
         return newsModels;
     }
 
-    public NewsModel getNewsById(Long id){
-        return newsModels.stream().filter(e -> Objects.equals(e.getId(), id))
-                .findFirst().orElse(null);
-    }
 
 
     public NewsModel addNews(NewsModel entity) {
@@ -93,6 +74,7 @@ public class DataSource {
         newsModels.add(entity);
         return entity;
     }
+
 
     public boolean removeNews(NewsModel entity){
         return newsModels.remove(entity);

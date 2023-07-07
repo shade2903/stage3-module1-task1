@@ -5,6 +5,7 @@ import com.mjc.school.repository.domain.DataSource;
 import com.mjc.school.repository.entity.NewsModel;
 
 import java.util.List;
+import java.util.Objects;
 
 public class NewsRepositoryImpl implements NewsRepository<NewsModel> {
     private DataSource dataSource;
@@ -24,7 +25,8 @@ public class NewsRepositoryImpl implements NewsRepository<NewsModel> {
 
     @Override
     public NewsModel readById(Long id) {
-        return dataSource.getNewsById(id);
+        return dataSource.getAllNews().stream().filter(e -> Objects.equals(e.getId(), id))
+                .findFirst().orElse(null);
     }
 
     @Override
