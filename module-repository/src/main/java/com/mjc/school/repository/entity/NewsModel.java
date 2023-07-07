@@ -11,8 +11,21 @@ public class NewsModel {
     private LocalDateTime lastUpdateDate;
     private Long authorId;
 
-    public NewsModel() {
+    public NewsModel(Long id,
+                     String title,
+                     String content,
+                     LocalDateTime createDate,
+                     LocalDateTime lastUpdateDate,
+                     Long authorId) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.createDate = createDate;
+        this.lastUpdateDate = lastUpdateDate;
+        this.authorId = authorId;
     }
+
+
 
     public Long getId() {
         return id;
@@ -76,50 +89,6 @@ public class NewsModel {
         return Objects.hash(id, title, content, createDate, lastUpdateDate, authorId);
     }
 
-    public static NewsModelBuilder getBuilder(){
-        return new NewsModelBuilder();
-    }
-
-    public static class NewsModelBuilder{
-        private final NewsModel newsModel;
-
-        public NewsModelBuilder(){
-            newsModel = new NewsModel();
-        }
-
-        public NewsModelBuilder setId(Long id){
-            newsModel.id = id;
-            return this;
-        }
-
-        public NewsModelBuilder setTitle(String title){
-            newsModel.title = title;
-            return this;
-        }
-
-        public NewsModelBuilder setContent(String content){
-            newsModel.content = content;
-            return this;
-        }
-
-        public NewsModelBuilder setCreateDate(LocalDateTime createDate){
-            newsModel.createDate =createDate;
-            return this;
-        }
-        public NewsModelBuilder setLastUpdateDate(LocalDateTime lastUpdateDate){
-            newsModel.lastUpdateDate = lastUpdateDate;
-            return this;
-        }
-
-        public NewsModelBuilder setAuthorId(Long authorId){
-            newsModel.authorId = authorId;
-            return this;
-        }
-
-        public NewsModel build(){
-            return newsModel;
-        }
-    }
 
     @Override
     public String toString() {

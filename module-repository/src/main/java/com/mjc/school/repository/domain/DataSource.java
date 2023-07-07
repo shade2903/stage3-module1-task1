@@ -16,7 +16,6 @@ public class DataSource {
     private static final String PATH_AUTHOR = "author.txt";
     private static final String PATH_CONTENT = "content.txt";
     private static final String PATH_NEWS = "news.txt";
-
     private static final int DATA_SOURCE_SIZE = 20;
 
 
@@ -37,7 +36,7 @@ public class DataSource {
         List<AuthorModel> authors = new ArrayList<>();
         Long id = 1L;
         for (String s : readResourceFile(PATH_AUTHOR)) {
-            authors.add(AuthorModel.getBuilder().setId(id).setName(s).build());
+            authors.add(new AuthorModel(id,s));
             id++;
         }
         return authors;
@@ -49,14 +48,14 @@ public class DataSource {
         List<String> content = readResourceFile(PATH_CONTENT);
         Long id = 1L;
         for (int i = 0; i < DATA_SOURCE_SIZE; i++) {
-            newsList.add(NewsModel.getBuilder()
-                    .setId(id++)
-                    .setTitle(news.get(i))
-                    .setContent(content.get(i))
-                    .setCreateDate(LocalDateTime.now())
-                    .setLastUpdateDate(LocalDateTime.now())
-                    .setAuthorId(authorModels.get(i).getId())
-                    .build());
+            newsList.add(
+                    new NewsModel(id++,
+                            news.get(i),
+                            content.get(i),
+                            LocalDateTime.now(),
+                            LocalDateTime.now(),
+                            authorModels.get(i).getId())
+                            );
         }
         return newsList;
     }
