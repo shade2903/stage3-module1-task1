@@ -8,6 +8,7 @@ import com.mjc.school.service.dto.NewsDto;
 import com.mjc.school.service.mapper.NewsMapper;
 import com.mjc.school.service.utils.NewsValidator;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,9 +50,9 @@ public class NewsServiceImpl implements NewsService<NewsDto> {
 
     @Override
     public NewsDto updateNews(NewsDto entity) throws RuntimeException {
+        entity.setLastUpdateDate(LocalDateTime.now());
         newsValidator.validateDTO(entity);
         newsValidator.validateNewsExist(entity.getId(), entity);
-
         NewsModel updatedModel = repository.update(newsMapper.NewsModelFromDto(entity));
         return newsMapper.NewsModelToDto(updatedModel);
     }

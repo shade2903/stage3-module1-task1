@@ -7,6 +7,7 @@ import com.mjc.school.service.exception.InvalidDataException;
 import com.mjc.school.service.exception.NotFoundException;
 
 import java.text.ParseException;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -67,12 +68,10 @@ public class Representation {
         System.out.println(MenuConstants.OPERATION_GET_BY_ID);
         System.out.println(MenuConstants.ENTER_ID);
         try {
-            System.out.println(controller.getById(inputNumberValidator(input)));
+            System.out.println(controller.getById(inputNumberValidator(input.nextLine())));
         } catch (InvalidDataException | NotFoundException e) {
             System.out.println(e.getMessage());
         }
-
-
     }
 
     public void createNews(Scanner input) {
@@ -84,7 +83,7 @@ public class Representation {
             System.out.println(MenuConstants.ENTER_CONTENT);
             newsDto.setContent(input.nextLine());
             System.out.println(MenuConstants.ENTER_AUTHOR_ID);
-            newsDto.setAuthorId(inputNumberValidator(input));
+            newsDto.setAuthorId(inputNumberValidator(input.nextLine()));
             System.out.println(controller.create(newsDto));
         } catch (InvalidDataException | NotFoundException e) {
             System.out.println(e.getMessage());
@@ -96,13 +95,13 @@ public class Representation {
         newsDto = new NewsDto();
         try {
             System.out.println(MenuConstants.ENTER_ID);
-            newsDto.setAuthorId(inputNumberValidator(input));
+            newsDto.setId(inputNumberValidator(input.nextLine()));
             System.out.println(MenuConstants.ENTER_TITLE);
             newsDto.setTitle(input.nextLine());
             System.out.println(MenuConstants.ENTER_CONTENT);
             newsDto.setContent(input.nextLine());
             System.out.println(MenuConstants.ENTER_AUTHOR_ID);
-            newsDto.setAuthorId(inputNumberValidator(input));
+            newsDto.setAuthorId(inputNumberValidator(input.nextLine()));
             System.out.println(controller.update(newsDto));
         } catch (InvalidDataException | NotFoundException e) {
             System.out.println(e.getMessage());
@@ -113,7 +112,7 @@ public class Representation {
         System.out.println(MenuConstants.OPERATION_DELETE);
         System.out.println(MenuConstants.ENTER_ID);
         try {
-            System.out.println(controller.delete(inputNumberValidator(input)));
+            System.out.println(controller.delete(inputNumberValidator(input.nextLine())));
         } catch (InvalidDataException | NotFoundException e) {
             System.out.println(e.getMessage());
         }
@@ -125,15 +124,13 @@ public class Representation {
     }
 
 
-    private Long inputNumberValidator(Scanner input) {
+    private Long inputNumberValidator(String input) {
         Long inputLong = null;
         try {
-            inputLong = input.nextLong();
+            inputLong = Long.parseLong(input);
         } catch (Exception e) {
             System.out.println(MenuConstants.OPERATION_ERROR);
         }
         return inputLong;
     }
-
-
 }

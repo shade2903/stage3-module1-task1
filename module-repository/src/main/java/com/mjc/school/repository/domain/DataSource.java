@@ -59,34 +59,10 @@ public class DataSource {
         }
         return newsList;
     }
-
     public List<NewsModel> getAllNews() {
         return newsModels;
     }
 
 
-
-    public NewsModel addNews(NewsModel entity) {
-        Long id = newsModels.get(newsModels.size() -1).getId() + 1L;
-        entity.setId(id);
-        entity.setCreateDate(LocalDateTime.now());
-        entity.setLastUpdateDate(LocalDateTime.now());
-        newsModels.add(entity);
-        return entity;
-    }
-
-
-    public boolean removeNews(NewsModel entity){
-        return newsModels.remove(entity);
-    }
-
-    public NewsModel updateNews(NewsModel entity){
-        NewsModel updatedNews = getNewsById(entity.getId());
-        updatedNews.setContent(entity.getContent());
-        updatedNews.setTitle(entity.getTitle());
-        updatedNews.setLastUpdateDate(entity.getLastUpdateDate());
-        updatedNews.setAuthorId(entity.getAuthorId());
-        return updatedNews;
-    }
 
 }
