@@ -7,21 +7,26 @@ import com.mjc.school.service.NewsService;
 import com.mjc.school.service.dto.NewsDtoRequest;
 import com.mjc.school.service.dto.NewsDtoResponse;
 import com.mjc.school.service.mapper.NewsMapper;
+import com.mjc.school.service.utils.NewsValidator;
 
 import java.util.List;
+
+import static com.mjc.school.service.utils.NewsValidator.*;
 
 public class NewsServiceImpl implements NewsService<NewsDtoRequest, NewsDtoResponse> {
     private final NewsMapper newsMapper;
     private final NewsRepository<NewsModel> newsRepository;
+    private final NewsValidator newsValidator;
 
-    public NewsServiceImpl(NewsMapper newsMapper, NewsRepository<NewsModel> newsRepository) {
+    public NewsServiceImpl() {
         this.newsMapper = NewsMapper.INSTANCE;
         this.newsRepository = new NewsRepositoryImpl();
+        this.newsValidator = getNewsValidator();
     }
 
     @Override
     public List<NewsDtoResponse> readAll() {
-        return null;
+        return newsRepository.readAll().stream().map(newsMapper::newsToDtoResponse).toList();
     }
 
     @Override
