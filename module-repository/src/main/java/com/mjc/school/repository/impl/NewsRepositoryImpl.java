@@ -29,7 +29,7 @@ public class NewsRepositoryImpl implements NewsRepository<NewsModel> {
             entity.setId(1L);
         }
         entity.setCreateDate(LocalDateTime.now());
-        entity.setLastUpdateTime(LocalDateTime.now());
+        entity.setLastUpdateDate(LocalDateTime.now());
         dataSource.getNews().add(entity);
         return entity;
     }
@@ -50,7 +50,7 @@ public class NewsRepositoryImpl implements NewsRepository<NewsModel> {
         NewsModel updatedNews = readById(entity.getId());
         updatedNews.setTitle(entity.getTitle());
         updatedNews.setContent(entity.getContent());
-        updatedNews.setLastUpdateTime(entity.getLastUpdateTime());
+        updatedNews.setLastUpdateDate(entity.getLastUpdateDate());
         updatedNews.setAuthorId(entity.getId());
         return updatedNews;
     }
